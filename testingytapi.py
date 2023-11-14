@@ -64,7 +64,8 @@ response = request.execute()
 #Since reponse is a dictionary we can use the get() function to get all the values (in the form of a list) corresponding to the key "items". These values will themselves be dictionaries containing info about individual playlists for the account.
 playlist_list = response.get("items", [])
 
-itemId = []
+itemID = []
+item_name = []
 
 #For loop for printing the individual playlist titles
 for playlist in playlist_list:
@@ -74,33 +75,50 @@ for playlist in playlist_list:
   playlist_title = playlist.get("snippet", {}).get("title")
   playlist_id = playlist.get("id")
   # print(f"Title: {playlist_title}")
-  saved_pl = ["Summer", "Plugg spellista", "UK Bangerz", "Vibe mf", "Life", "Walk thru wall", "Wesley the 🐐", "Movie", "Oh mah gawd", "Forgotten bangerz", "25 låtar", "Slow times", "G(old)", "Workout", "Bangers"]
+  #saved_pl = ["Summer", "Plugg spellista", "UK Bangerz", "Vibe mf", "Life", "Walk thru wall", "Wesley the 🐐", "Movie", "Oh mah gawd", "Forgotten bangerz", "25 låtar", "Slow times", "G(old)", "Workout", "Bangers"]
+  saved_pl = ["Slow times"]
   if playlist_title in saved_pl:
-    itemId.append(playlist_id)
+    itemID.append(playlist_id)
+    item_name.append(playlist_title)
     print(f"Title: {playlist_title} \nID: {playlist_id}")
 
 
 print("")
 
+#list of dict_lists
+dict_list_list = []
 
-for i in range(0, len(itemId)):
+
+for i in range(0, len(itemID)):
   print(f"\n \n")
   request2 = service.playlistItems().list(
     part="snippet",
-    playlistId = itemId[i],
+    playlistId = itemID[i],
     maxResults = 50
     )
 
   response2 = request2.execute()
 
+  #from reponse2, the "items" is a list that contains several hashmaps. An empty list is given as an argument in case there are no items in the list
   playlist_songs = response2.get("items",[])
 
+  #list of track dictionaries
+  dict_list = []
+
+  print(f"Playlist: {item_name[i]} \n")
   for song in playlist_songs:
     song_title = song.get("snippet", {}).get("title")
-    song_id = song.get("id")
     song_artist = song.get("snippet").get("videoOwnerChannelTitle")
-    print(f"Song: {song_title} \nArtist: {song_artist} \nID: {song_id}")
+    parsed_song_artist = song_artist.replace(" - Topic", "")
+    song_dict = {song_title: parsed_song_artist}
+    dict_list.append(song_dict)
+    search_string = f"{song_title} {parsed_song_artist}"
+    print(f"Song: {song_title}  &  Artist: {parsed_song_artist}")
+    print(search_string)
 
+dict_list_list.append(dict_list)
 
+def some_function():
+   return "Hi ya'll"
 
-
+powerful_statement = True
