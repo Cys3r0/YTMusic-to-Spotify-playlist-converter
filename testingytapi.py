@@ -36,18 +36,6 @@ if not credentials or not credentials.valid: #If the credentials varible isn't a
             pickle.dump(credentials, f) #serializes the credentials (turns credentials object into a bytestream) and stores it in the token.pickle file
 
 
-# #Create a flow class with the class method from_client_secrets_file. The method takes client info and scopes and contacts the google api to ask for credentials.
-# flow = InstalledAppFlow.from_client_secrets_file(client_secrets_file= "webclientinfo.json", scopes = ['https://www.googleapis.com/auth/youtube.readonly'])
-
-# #Runs a local server which the user is redirected to.
-# flow.run_local_server(port=2001, prompt="consent", authorization_prompt_message="u just got scammed lol")
-
-# #The returned credentials using the flow class used above.
-# credentials = flow.credentials
-
-# #Print the returned credentials
-# print (credentials.to_json())
-
 #Build a service object that is needed to make requests of google API
 service = build("youtube", "v3", credentials = credentials)
 
@@ -76,21 +64,17 @@ for playlist in playlist_list:
   playlist_id = playlist.get("id")
   # print(f"Title: {playlist_title}")
   #saved_pl = ["Summer", "Plugg spellista", "UK Bangerz", "Vibe mf", "Life", "Walk thru wall", "Wesley the 🐐", "Movie", "Oh mah gawd", "Forgotten bangerz", "25 låtar", "Slow times", "G(old)", "Workout", "Bangers"]
-  saved_pl = ["Life"]
+  saved_pl = ["Workout"]
   if playlist_title in saved_pl:
     itemID.append(playlist_id)
     item_name.append(playlist_title)
-    print(f"Title: {playlist_title} \nID: {playlist_id}")
 
-
-print("")
 
 #list of dict_lists
 dict_list_list = []
 
 
 for i in range(0, len(itemID)):
-  print(f"\n \n")
   request2 = service.playlistItems().list(
     part="snippet",
     playlistId = itemID[i],
@@ -113,7 +97,6 @@ for i in range(0, len(itemID)):
     song_dict = {song_title: parsed_song_artist}
     dict_list.append(song_dict)
     search_string = f"{song_title} {parsed_song_artist}"
-    # print(f"Song: {song_title}  &  Artist: {parsed_song_artist}")
-    # print(search_string)
+
 
 dict_list_list.append(dict_list)

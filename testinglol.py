@@ -17,12 +17,10 @@ for dict in dict_list_list:
 
 def get_song(index):
     for key, value in track_list[index].items():
-        print(key)
         return key
 
 def get_artist(index):
     for key, value in track_list[index].items():
-        print(value)
         return value
 
 get_song(3)
