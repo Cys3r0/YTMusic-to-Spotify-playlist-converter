@@ -76,7 +76,7 @@ for playlist in playlist_list:
   playlist_id = playlist.get("id")
   # print(f"Title: {playlist_title}")
   #saved_pl = ["Summer", "Plugg spellista", "UK Bangerz", "Vibe mf", "Life", "Walk thru wall", "Wesley the 🐐", "Movie", "Oh mah gawd", "Forgotten bangerz", "25 låtar", "Slow times", "G(old)", "Workout", "Bangers"]
-  saved_pl = ["Slow times"]
+  saved_pl = ["Life"]
   if playlist_title in saved_pl:
     itemID.append(playlist_id)
     item_name.append(playlist_title)
@@ -113,7 +113,7 @@ for i in range(0, len(itemID)):
     song_dict = {song_title: parsed_song_artist}
     dict_list.append(song_dict)
     search_string = f"{song_title} {parsed_song_artist}"
-    print(f"Song: {song_title}  &  Artist: {parsed_song_artist}")
-    print(search_string)
+    # print(f"Song: {song_title}  &  Artist: {parsed_song_artist}")
+    # print(search_string)
 
 dict_list_list.append(dict_list)
