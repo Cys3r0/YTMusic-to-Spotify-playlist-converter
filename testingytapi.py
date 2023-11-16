@@ -117,8 +117,3 @@ for i in range(0, len(itemID)):
     print(search_string)
 
 dict_list_list.append(dict_list)
-
-def some_function():
-   return "Hi ya'll"
-
-powerful_statement = True
